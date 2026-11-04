@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --palette-peach: #FFBB94;
+    --palette-coral: #FB9590;
+    --palette-rose: #DC586D;
+    --palette-plum: #A33757;
+    --palette-wine: #852E4E;
+    --palette-eggplant: #4C1D3D;
+
+    --dur-fast: 120ms;
+    --dur-base: 200ms;
+    --dur-slow: 360ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #FDF9F6;
+    color: #321326;
+    font-family: 'Newsreader', Georgia, serif;
+    overscroll-behavior: none;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #E7CDC1;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4B6C2;
+  }
+}
+
+/* Material Symbols Outlined font-variation utility */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Signature M-03 Highlighter Sweep Animation in Warm Peach (#FFBB94) */
+.highlighter-sweep {
+  background-image: linear-gradient(to right, #FFBB94, #FFBB94);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: sweep 360ms cubic-bezier(0.65, 0, 0.35, 1) 120ms forwards;
+}
+
+@keyframes sweep {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlighter-sweep {
+    animation: none;
+    background-size: 100% 100%;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

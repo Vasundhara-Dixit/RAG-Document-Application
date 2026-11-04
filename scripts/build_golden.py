@@ -1,0 +1,534 @@
+"""CLI utility to generate and partition the Golden QA benchmark dataset."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+# Add project root to sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from app.eval.golden import GoldenDatasetManager
+from app.models.schemas import GoldenItem, GoldenQuestionType
+
+
+def create_golden_items() -> list[GoldenItem]:
+    """Generate 52 authoritative Golden QA benchmark items across five taxonomies."""
+    items: list[GoldenItem] = []
+
+    # ==========================================
+    # 1. FACTOID QUESTIONS (14 items)
+    # ==========================================
+    items.extend(
+        [
+            GoldenItem(
+                id="gold_fact_01",
+                question="What encryption algorithm is used to protect backup archives?",
+                reference_answer="All backup archives are encrypted using AES-256-GCM with keys managed in AWS KMS.",
+                doc_id="server_ops_manual.txt",
+                page=2,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_02",
+                question="Which availability zones does the Acme Cloud Platform run on?",
+                reference_answer="The platform runs across three availability zones: us-east-1a, us-east-1b, and us-east-1c.",
+                doc_id="server_ops_manual.txt",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_03",
+                question="What protocol and tool must remote employees use to connect to corporate infrastructure?",
+                reference_answer="Remote employees must connect exclusively via the Acme corporate WireGuard VPN.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_04",
+                question="What authentication mechanism is strictly mandatory for all internal services?",
+                reference_answer="Multi-factor authentication (MFA) via hardware security key (FIDO2 / YubiKey) is strictly mandatory.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_05",
+                question="What type of token is required for all Acme API requests?",
+                reference_answer="All API requests require Bearer authentication using JSON Web Tokens (JWT) issued by auth.acme.example.com.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_06",
+                question="How is revoked API key propagation communicated to edge gateway nodes?",
+                reference_answer="Revoked API keys are propagated to gateway edge nodes within 30 seconds via Redis PubSub.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_07",
+                question="Where must all incident post-mortems be published?",
+                reference_answer="All incident post-mortems must be published to the engineering wiki within 48 hours of resolution.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_08",
+                question="What screen lock and disk encryption standards are enforced on remote laptops?",
+                reference_answer="Workstations enforce automatic lock after 5 minutes of inactivity and full disk encryption with FileVault.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_09",
+                question="What status code is returned when API rate limits are exceeded?",
+                reference_answer="Exceeding rate limits returns an HTTP 429 Too Many Requests response with a Retry-After header.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_10",
+                question="What format header is returned prior to decommissioning deprecated endpoints?",
+                reference_answer="Deprecated endpoints return an HTTP Deprecation header 180 days prior to complete decommissioning.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_11",
+                question="What type of primary storage does Acme Cloud Platform use?",
+                reference_answer="Primary storage uses high-performance NVMe SSD arrays with continuous snapshotting enabled.",
+                doc_id="server_ops_manual.txt",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_12",
+                question="Which email address must employees use to report lost or stolen devices?",
+                reference_answer="Lost or stolen devices must be reported immediately to security@acme.example.com within 2 hours.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_13",
+                question="When do scheduled infrastructure maintenance windows take place?",
+                reference_answer="Scheduled maintenance windows occur every Tuesday between 03:00 UTC and 05:00 UTC.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.FACTOID,
+            ),
+            GoldenItem(
+                id="gold_fact_14",
+                question="What is the emergency escalation telephone number for senior infrastructure leadership?",
+                reference_answer="The emergency escalation phone number for senior infrastructure leadership is +1-800-555-0199.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.FACTOID,
+            ),
+        ]
+    )
+
+    # ==========================================
+    # 2. NUMERIC QUESTIONS (12 items)
+    # ==========================================
+    items.extend(
+        [
+            GoldenItem(
+                id="gold_num_01",
+                question="What was Acme's total revenue in Q3 2026?",
+                reference_answer="Total revenue was $42.5 million, representing a 28% year-over-year increase compared to Q3 2025.",
+                doc_id="financial_overview.txt",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_02",
+                question="What is the one-time home office setup reimbursement amount for new hires?",
+                reference_answer="A one-time home office setup reimbursement of $1,000 is available for chairs and standing desks.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_03",
+                question="What is the ongoing monthly internet stipend credited to remote workers?",
+                reference_answer="An ongoing monthly internet stipend of $75 is credited on each payroll cycle.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_04",
+                question="What is the disaster recovery RTO and RPO target during secondary failure?",
+                reference_answer="Disaster recovery failover completes in under 15 minutes, with RTO = 15m and RPO = 5m.",
+                doc_id="server_ops_manual.txt",
+                page=2,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_05",
+                question="What are the rate limit quotas for the Developer Tier?",
+                reference_answer="Developer Tier allows 60 requests per minute with a burst allowance of 10 requests.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_06",
+                question="What are the rate limit quotas for the Enterprise Tier?",
+                reference_answer="Enterprise Tier allows 6,000 requests per minute with customizable burst limits up to 500 requests.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_07",
+                question="What was Acme's Annual Recurring Revenue (ARR) at the close of Q3 2026?",
+                reference_answer="Annual Recurring Revenue (ARR) reached $165.0 million by the close of the quarter.",
+                doc_id="financial_overview.txt",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_08",
+                question="What was the Free Cash Flow (FCF) and FCF margin in Q3 2026?",
+                reference_answer="Free Cash Flow for the quarter was $7.6 million, representing an FCF margin of 17.9%.",
+                doc_id="financial_overview.txt",
+                page=3,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_09",
+                question="What is the required response time for P1 critical incidents?",
+                reference_answer="P1 critical incidents require response within 15 minutes by the on-call Site Reliability Engineer.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_10",
+                question="What is the maximum JSON request body size supported by the API gateway?",
+                reference_answer="The maximum allowable JSON request body size is 10 megabytes (10 MB).",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_11",
+                question="What was the Net Dollar Retention (NDR) rate in Q3 2026?",
+                reference_answer="Net Dollar Retention (NDR) stood at 118%, driven by expansion within Enterprise Tier customers.",
+                doc_id="financial_overview.txt",
+                page=1,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+            GoldenItem(
+                id="gold_num_12",
+                question="How much cash and cash equivalents did Acme hold at the end of Q3 2026?",
+                reference_answer="Cash and cash equivalents totaled $88.4 million at quarter end, an increase of $14.2 million.",
+                doc_id="financial_overview.txt",
+                page=3,
+                type=GoldenQuestionType.NUMERIC,
+            ),
+        ]
+    )
+
+    # ==========================================
+    # 3. MULTI-SENTENCE SYNTHESIS (12 items)
+    # ==========================================
+    items.extend(
+        [
+            GoldenItem(
+                id="gold_multi_01",
+                question="Explain the backup retention policy and schedule in detail.",
+                reference_answer="Backups execute nightly at 02:00 UTC. The retention policy requires 30 daily snapshots, 12 monthly archives, and 7 annual archives, all encrypted with AES-256-GCM.",
+                doc_id="server_ops_manual.txt",
+                page=2,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_02",
+                question="What hardware monitors, laptop, and accessories are provided in the standard remote work bundle?",
+                reference_answer="The standard hardware bundle includes one 16-inch MacBook Pro with 32 GB unified memory and 1 TB SSD, two 27-inch 4K external Dell UltraSharp monitors, and an ergonomic mechanical keyboard and vertical wireless mouse.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_03",
+                question="Describe the breakdown of Acme's $31.8 million operating expenses in Q3 2026 across cost centers.",
+                reference_answer="Operating expenses were distributed across Research and Development ($16.2 million, 51%), Sales and Marketing ($10.5 million, 33%), and General and Administrative ($5.1 million, 16%).",
+                doc_id="financial_overview.txt",
+                page=2,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_04",
+                question="What are the rate limit tiers for Developer, Professional, and Enterprise subscriptions?",
+                reference_answer="Developer Tier permits 60 req/min (burst 10), Professional Tier permits 600 req/min (burst 50), and Enterprise Tier permits 6,000 req/min (burst up to 500).",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_05",
+                question="Explain the working hours and daily standup communication requirements for remote staff.",
+                reference_answer="Core collaboration hours are 10:00 to 15:00 in the employee's local time zone, and daily asynchronous updates must be posted to Slack by 09:30 local time.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_06",
+                question="What are the rules and pagination limits for large API responses exceeding 2 megabytes?",
+                reference_answer="Responses exceeding 2 MB must use pagination with cursor tokens `next_cursor` and query parameter `limit` up to a maximum of 100 items per page.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_07",
+                question="Summarize the incident response times for P1 and P2 incidents and post-mortem expectations.",
+                reference_answer="P1 critical incidents require response within 15 minutes by an on-call SRE, P2 incidents require under 60 minutes, and incident post-mortems must be published within 48 hours.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_08",
+                question="How did subscription revenue and professional services revenue compare in Q3 2026?",
+                reference_answer="Subscription revenue comprised 92% of total revenue ($39.1 million), while professional services accounted for the remaining 8% ($3.4 million).",
+                doc_id="financial_overview.txt",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_09",
+                question="What are the rules for requesting paid time off (PTO) exceeding three days?",
+                reference_answer="Employees planning PTO exceeding 3 consecutive business days must submit their requests at least 14 calendar days in advance.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_10",
+                question="What were the capital expenditures (CapEx) in Q3 2026 and what were they spent on?",
+                reference_answer="Capital expenditures totaled $2.1 million, dedicated primarily to upgrading data center GPU clusters and edge caching servers.",
+                doc_id="financial_overview.txt",
+                page=3,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_11",
+                question="What is the token lifespan for access tokens and refresh tokens in the API platform?",
+                reference_answer="Access tokens expire after 3,600 seconds (1 hour), whereas refresh tokens have an active lifetime of 30 days.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+            GoldenItem(
+                id="gold_multi_12",
+                question="Describe Acme's DDoS mitigation capabilities and Anycast gateway routing.",
+                reference_answer="Network traffic is routed through dual Anycast border gateways with DDoS mitigation capacity capable of absorbing attacks up to 500 Gbps.",
+                doc_id="server_ops_manual.txt",
+                page=1,
+                type=GoldenQuestionType.MULTI_SENTENCE,
+            ),
+        ]
+    )
+
+    # ==========================================
+    # 4. NO-ANSWER / ABSTENTION QUESTIONS (8 items)
+    # ==========================================
+    items.extend(
+        [
+            GoldenItem(
+                id="gold_noans_01",
+                question="What is the company policy regarding employee pet care and office visits?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_02",
+                question="What were Acme's total financial revenues in the fiscal year 2018?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_03",
+                question="What brand of espresso machine is provided in the breakroom?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_04",
+                question="What is the health insurance dental coverage copay for dependents?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_05",
+                question="Which database engine is used for user comments on the public blog?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_06",
+                question="What is the discount code for the annual customer summit in Las Vegas?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_07",
+                question="How many electric vehicle charging stations are in the corporate parking garage?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+            GoldenItem(
+                id="gold_noans_08",
+                question="What is the stock ticker symbol for Acme Corporation on the London Stock Exchange?",
+                reference_answer="The documents don't contain enough information to answer this.",
+                doc_id="none",
+                page=0,
+                type=GoldenQuestionType.NO_ANSWER,
+            ),
+        ]
+    )
+
+    # ==========================================
+    # 5. AMBIGUOUS / NUANCED QUESTIONS (6 items)
+    # ==========================================
+    items.extend(
+        [
+            GoldenItem(
+                id="gold_ambig_01",
+                question="What is the procedure for handling incidents at Acme?",
+                reference_answer="For infrastructure outages, SREs must respond within 15 minutes for P1 or 60 minutes for P2 and publish a post-mortem within 48 hours; for lost hardware devices, report within 2 hours to security.",
+                doc_id="server_ops_manual.txt",
+                page=3,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+            GoldenItem(
+                id="gold_ambig_02",
+                question="What are the rules regarding data and devices when working remotely?",
+                reference_answer="Workstations require FileVault encryption and 5-minute screen locks; no source code or customer data may be copied to personal storage, and lost devices must be reported in 2 hours.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+            GoldenItem(
+                id="gold_ambig_03",
+                question="How are limits enforced across the API?",
+                reference_answer="Limits depend on tier (60, 600, or 6,000 req/min) and reset every UTC clock minute; payload sizes are capped at 10 MB JSON and 100 MB multipart.",
+                doc_id="api_platform_spec.md",
+                page=1,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+            GoldenItem(
+                id="gold_ambig_04",
+                question="When do system tests and emergency dry runs happen?",
+                reference_answer="Disaster recovery dry runs are conducted biannually in April and October, while routine maintenance windows occur every Tuesday at 03:00 to 05:00 UTC.",
+                doc_id="server_ops_manual.txt",
+                page=2,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+            GoldenItem(
+                id="gold_ambig_05",
+                question="What stipends or reimbursements do employees receive?",
+                reference_answer="Remote employees receive a one-time $1,000 home office setup reimbursement upon hire and an ongoing $75 monthly internet stipend.",
+                doc_id="remote_work_policy.md",
+                page=1,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+            GoldenItem(
+                id="gold_ambig_06",
+                question="How is revenue growth performing across customer tiers?",
+                reference_answer="Revenue grew 28% year-over-year with 118% Net Dollar Retention, driven primarily by expansion within Enterprise Tier customers.",
+                doc_id="financial_overview.txt",
+                page=1,
+                type=GoldenQuestionType.AMBIGUOUS,
+            ),
+        ]
+    )
+
+    return items
+
+
+def main() -> None:
+    """Build, partition, and serialize the Golden QA dataset."""
+    parser = argparse.ArgumentParser(description="Build Golden QA benchmark set.")
+    parser.add_argument(
+        "--output-dir",
+        default="data/golden",
+        help="Target directory for golden dataset",
+    )
+    parser.add_argument(
+        "--filename",
+        default="golden_v1.jsonl",
+        help="Target filename for golden dataset",
+    )
+    parser.add_argument(
+        "--holdout-ratio",
+        type=float,
+        default=0.30,
+        help="Fraction of dataset reserved for holdout split",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed for train/holdout partitioning",
+    )
+    args = parser.parse_args()
+
+    manager = GoldenDatasetManager(storage_dir=args.output_dir)
+    raw_items = create_golden_items()
+
+    for item in raw_items:
+        manager.add_item(item)
+
+    train_n, holdout_n = manager.partition_train_holdout(
+        holdout_ratio=args.holdout_ratio,
+        seed=args.seed,
+    )
+
+    out_file = manager.save_to_file(filename=args.filename)
+
+    print("\n" + "=" * 55)
+    print("       GOLDEN QA DATASET SUMMARY (v1.0)")
+    print("=" * 55)
+    print(f"Total Items:     {manager.count()}")
+    print(f"Train Split:     {train_n} ({train_n / manager.count() * 100:.1f}%)")
+    print(f"Holdout Split:   {holdout_n} ({holdout_n / manager.count() * 100:.1f}%)")
+    print(f"Output Path:     {out_file.resolve()}")
+    print("-" * 55)
+    for q_type in GoldenQuestionType:
+        count = len(manager.list_items(q_type=q_type))
+        print(f"  • {q_type.value:<16}: {count} items")
+    print("=" * 55 + "\n")
+
+
+if __name__ == "__main__":
+    main()

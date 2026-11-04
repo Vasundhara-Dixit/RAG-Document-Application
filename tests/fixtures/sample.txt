@@ -1,0 +1,20 @@
+# Server Operations Manual
+
+Page 1
+Section 1.1: System Architecture
+The Acme Cloud Platform runs on a distributed architecture across three availability zones.
+Each zone contains redundant load balancers and database replicas. Primary storage uses
+high-performance SSD arrays with continuous snapshotting enabled.
+
+Page 2
+Section 1.2: Backup Procedures
+Backups execute nightly at 02:00 UTC. The backup retention policy requires 30 daily snapshots,
+12 monthly archives, and 7 annual archives. All backup archives are encrypted using AES-256-GCM.
+In the event of secondary failure, disaster recovery failover completes in under 15 minutes (RTO = 15m, RPO = 5m).
+
+Page 3
+Section 1.3: Maintenance and Incident Response
+Scheduled maintenance windows occur every Tuesday between 03:00 UTC and 05:00 UTC.
+P1 critical incidents require response within 15 minutes by the on-call Site Reliability Engineer.
+All incident post-mortems must be published to the engineering wiki within 48 hours of resolution.
+

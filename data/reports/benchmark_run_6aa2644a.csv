@@ -1,0 +1,3 @@
+item_id,question_type,question,reference_answer,generated_answer,abstained,semantic_similarity,faithfulness,correctness,completeness,retrieval_ms,generation_ms,total_ms
+eval_q1,factoid,When do nightly backups execute?,Backups execute nightly at 02:00 UTC.,"# Operations Manual Backups execute nightly at 02:00 UTC. [1c59b45e795e7f4b, p.1].",False,0.7694,1.0,0.8571,1.0,2.93,0.41,3.35
+eval_q2,no_answer,What is the lunch menu for the cafeteria?,The documents don't contain enough information to answer this.,The documents don't contain enough information to answer this.,True,1.0,1.0,1.0,1.0,2.67,0.1,2.78
