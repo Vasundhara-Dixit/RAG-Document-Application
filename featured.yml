@@ -1,0 +1,43 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  featured.yml — controls the "Featured Projects" section of the profile README
+# ─────────────────────────────────────────────────────────────────────────────
+#  HOW IT WORKS
+#  Every PUBLIC repository you own is detected automatically (newest activity first) and shown in
+#  Featured Projects, up to `max_projects`. The profile repo itself, forks and archived repos are
+#  skipped. The list refreshes every hour, and right away when you push a change to this file.
+#
+#  TO HIDE A PROJECT (any one of these):
+#    1. add its name under `hidden:` below            → hidden until you delete the line
+#    2. add the GitHub topic  hide-from-profile       → on the repo page: ⚙ next to "About" → Topics
+#    3. make the repository private
+#
+#  TO SHOW IT AGAIN: remove it from `hidden:` / remove the topic.
+#
+#  OPTIONAL — PIN & REORDER
+#  Names under `featured:` always come first, in the order written. Use the long form to
+#  word the description yourself, or `enabled: false` to switch a pinned entry off without deleting it.
+#  Descriptions are otherwise built only from real data (GitHub description → README first line → topics).
+# ─────────────────────────────────────────────────────────────────────────────
+
+auto_detect: true          # false = show ONLY the repositories pinned under `featured:`
+
+hidden: []
+  # - some-private-experiment
+  # - old-assignment
+
+featured: []
+  # - my-best-project
+  # - name: another-project
+  #   description: "One sentence in your own words."
+  # - name: paused-project
+  #   enabled: false
+
+max_projects: 6            # shown two per row
+hide_topic: hide-from-profile
+include_forks: false
+include_archived: false
+
+# Repositories to leave out of the Languages card. The profile repo itself is excluded because
+# its Python scripts would otherwise skew the chart.
+exclude_from_language_stats:
+  - Vasundhara-Dixit

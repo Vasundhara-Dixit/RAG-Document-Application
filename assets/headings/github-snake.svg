@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 64" width="830" height="64" role="img" aria-label="GitHub Snake"><title>GitHub Snake</title><style>
+:root{--bg0:#fbf8ff;--bg1:#fff1f8;--ink:#2a1f45;--muted:#5d4f80;--faint:#8a7ca8;--line:#8f74d8;
+--lav:#6c4dc4;--pink:#d2467f;--emerald:#178a63;--gold:#9a741d;--sky:#3f73c4;--tile:#ffffff;--tileop:.66;--track:#e6def7}
+@media (prefers-color-scheme:dark){:root{--bg0:#160f24;--bg1:#221636;--ink:#f6f0ff;--muted:#bcaedb;--faint:#8f80b3;
+--line:#cbb8ff;--lav:#cbb8ff;--pink:#ffb8d6;--emerald:#6fe0b0;--gold:#e9cf8f;--sky:#9dbcf2;--tile:#ffffff;--tileop:.06;--track:#33254d}}
+.serif{font-family:'Playfair Display','Cormorant Garamond',Georgia,'Times New Roman',serif} .sans{font-family:'Inter','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif} .mono{font-family:'JetBrains Mono','SF Mono',SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace}
+.ink{fill:var(--ink)} .muted{fill:var(--muted)} .faint{fill:var(--faint)}
+.lav{fill:var(--lav)} .pink{fill:var(--pink)} .emerald{fill:var(--emerald)} .gold{fill:var(--gold)}
+.g0{stop-color:var(--bg0)} .g1{stop-color:var(--bg1)}
+.sl{stop-color:var(--lav)} .sp{stop-color:var(--pink)} .se{stop-color:var(--emerald)} .sg{stop-color:var(--gold)}
+.card{stroke:var(--line);stroke-opacity:.32;stroke-width:1}
+.tile{fill:var(--tile);fill-opacity:var(--tileop);stroke:var(--line);stroke-opacity:.26;stroke-width:1}
+.track{fill:var(--track)}
+.sky{fill:var(--sky)}</style><defs><linearGradient id="l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="sl" stop-opacity="0"/><stop offset=".6" class="sp" stop-opacity=".85"/><stop offset="1" class="sg"/></linearGradient><linearGradient id="r" x1="1" y1="0" x2="0" y2="0"><stop offset="0" class="sl" stop-opacity="0"/><stop offset=".6" class="sp" stop-opacity=".85"/><stop offset="1" class="sg"/></linearGradient></defs><rect x="60" y="31.25" width="237.9" height="1.5" fill="url(#l)"/><rect x="532.1" y="31.25" width="237.9" height="1.5" fill="url(#r)"/><rect x="293.9" y="28" width="8" height="8" rx="1.5" transform="rotate(45 297.9 32)" class="gold"/><rect x="528.1" y="28" width="8" height="8" rx="1.5" transform="rotate(45 532.1 32)" class="gold"/><text x="415" y="42" text-anchor="middle" class="serif ink" font-size="27" font-weight="600" letter-spacing=".4" textLength="182.2" lengthAdjust="spacing">GitHub Snake</text></svg>
